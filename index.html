@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AU Ignite Future Skills Academy</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --secondary: #06b6d4;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --light: #f8fafc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+            background-color: #fff;
+            line-height: 1.6;
+            color: var(--dark);
+        }
+
+        /* Modern Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            width: 120px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-slider {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            animation: slide 20s infinite;
+        }
+
+        @keyframes slide {
+            0%, 20% { transform: translateX(0); }
+            25%, 45% { transform: translateX(-100%); }
+            50%, 70% { transform: translateX(-200%); }
+            75%, 95% { transform: translateX(-300%); }
+            100% { transform: translateX(0); }
+        }
+
+        .hero-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.8), rgba(6, 182, 212, 0.6));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 10;
+            padding: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+        }
+
+        .cta-btn {
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .about-card {
+            padding: 2rem;
+            background: var(--light);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            background: white;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .about-card h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(139, 92, 246, 0.3);
+        }
+
+        .team-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .team-info {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+        }
+
+        .team-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-info p {
+            opacity: 0.9;
+        }
+
+        /* Courses Section */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 50px rgba(139, 92, 246, 0.3);
+        }
+
+        .course-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .course-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .course-card p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .course-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .course-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        /* Additional Courses */
+        .additional-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .additional-card {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            padding: 2.5rem;
+            border-radius: 20px;
+            color: white;
+        }
+
+        .additional-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .additional-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .additional-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .additional-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 3rem;
+            border-radius: 20px;
+            max-width: 600px;
+            position: relative;
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close {
+            position: absolute;
+            right: 2rem;
+            top: 2rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: var(--dark);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .additional-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Modern Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <img src="./Logo.jpg" alt="AU Ignite Logo" class="logo">
+            <button class="mobile-menu-btn" onclick="toggleMenu()">
+                <i class='bx bx-menu'></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#additional">Programs</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-slider">
+            <div class="hero-slide"><img src="./Image1.jpeg" alt="Hero 1"></div>
+            <div class="hero-slide"><img src="./Image2.jpeg" alt="Hero 2"></div>
+            <div class="hero-slide"><img src="./Image3.jpeg" alt="Hero 3"></div>
+            <div class="hero-slide"><img src="./Image1.jpeg" alt="Hero 4"></div>
+        </div>
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1>Transform Your Future with IT Skills</h1>
+                <p>Empowering youth in Rajasthan with cutting-edge technology training and career opportunities</p>
+                <a href="#courses" class="cta-btn">Explore Courses</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section>
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">15,800+</div>
+                <div class="stat-label">Youth Trained</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">16</div>
+                <div class="stat-label">Training Centers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">90 Days</div>
+                <div class="stat-label">Training Duration</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">43</div>
+                <div class="stat-label">Skill Trades</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About AU Ignite</h2>
+        <p class="section-subtitle">Partnering with excellence to build a skilled workforce for tomorrow</p>
+        
+        <div class="about-grid">
+            <div class="about-card">
+                <h3>Our Mission</h3>
+                <p>AU Foundation, the CSR arm of AU Small Finance Bank, has partnered with Ambuja Foundation to launch the Future Skills Academy. We're dedicated to empowering marginalized youth with relevant IT skills to transform their careers and communities.</p>
+            </div>
+            <div class="about-card">
+                <h3>5 Years of Impact</h3>
+                <p>Celebrating five years of collaboration, we've established seven skill training centers across Rajasthan, benefitting 5,500+ rural youth. Our expanded reach now includes Jaipur, Chirawa, Jaitaran, Nagaur, and Goverdhan.</p>
+            </div>
+            <div class="about-card">
+                <h3>Our Commitment</h3>
+                <p>Through comprehensive training in 43 organized sectors, we're working towards our goal of training 28,000 youth by 2025. Every program includes essential computer skills, functional English, and professional soft skills development.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team">
+        <h2 class="section-title">Meet Our Expert Trainers</h2>
+        <p class="section-subtitle">Learn from industry professionals dedicated to your success</p>
+        
+        <div class="team-grid">
+            <div class="team-card">
+                <img src="https://png.pngtree.com/png-clipart/20190611/original/pngtree-holding-white-female-teacher-cartoon-png-image_2576770.jpg" alt="Pooja Sahu" class="team-img">
+                <div class="team-info">
+                    <h3>Pooja Sahu</h3>
+                    <p>MERN Stack Trainer</p>
+                </div>
+            </div>
+            <div class="team-card">
+                <img src="./teacher.png" alt="Naman Gupta" class="team-img">
+                <div class="team-info">
+                    <h3>Naman Gupta</h3>
+                    <p>Salesforce Trainer</p>
+                </div>
+            </div>
+            <div class="team-card">
+                <img src="./teacher.png" alt="Satyam Mishra" class="team-img">
+                <div class="team-info">
+                    <h3>Satyam Mishra</h3>
+                    <p>Data Science Trainer</p>
+                </div>
+            </div>
+            <div class="team-card">
+                <img src="./teacher.png" alt="Dinesh Singh" class="team-img">
+                <div class="team-info">
+                    <h3>Dinesh Singh</h3>
+                    <p>CRT Trainer</p>
+                </div>
+            </div>
+            <div class="team-card">
+                <img src="https://png.pngtree.com/png-clipart/20190611/original/pngtree-holding-white-female-teacher-cartoon-png-image_2576770.jpg" alt="Shalini Dixit" class="team-img">
+                <div class="team-info">
+                    <h3>Shalini Dixit</h3>
+                    <p>Soft Skills Trainer</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses">
+        <h2 class="section-title">Our IT Courses</h2>
+        <p class="section-subtitle">90-day intensive programs designed to make you job-ready</p>
+        
+        <div class="course-grid">
+            <div class="course-card">
+                <div class="course-icon"><i class='bx bx-code-alt'></i></div>
+                <h3>MERN Stack Development</h3>
+                <p>Master full-stack web development with MongoDB, Express.js, React, and Node.js</p>
+                <button class="course-btn" onclick="openModal('MERN Stack Development', 'Technologies: HTML, CSS, JavaScript, React JS, Node JS, Express JS, MongoDB. Build modern, scalable web applications from scratch.')">View Details</button>
+            </div>
+            <div class="course-card">
+                <div class="course-icon"><i class='bx bx-data'></i></div>
+                <h3>Data Science</h3>
+                <p>Unlock insights from data using Python, Tableau, and Advanced Excel techniques</p>
+                <button class="course-btn" onclick="openModal('Data Science', 'Technologies: Python, Tableau, Advanced Excel. Learn data analysis, visualization, and machine learning fundamentals.')">View Details</button>
+            </div>
+            <div class="course-card">
+                <div class="course-icon"><i class='bx bx-cloud'></i></div>
+                <h3>Salesforce</h3>
+                <p>Become a certified Salesforce professional with hands-on CRM experience</p>
+                <button class="course-btn" onclick="openModal('Salesforce', 'Technologies: HTML, CSS, JavaScript, Java, SQL. Master the world\'s #1 CRM platform and boost your career.')">View Details</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Programs -->
+    <section id="additional">
+        <h2 class="section-title">Additional Training Programs</h2>
+        <p class="section-subtitle">Comprehensive skill development for complete career readiness</p>
+        
+        <div class="additional-grid">
+            <div class="additional-card">
+                <h3>Campus Recruitment Training (CRT)</h3>
+                <p>Comprehensive program preparing graduates for IT and non-IT company recruitment processes</p>
+                <ul>
+                    <li>Quantitative Aptitude</li>
+                    <li>Verbal Ability</li>
+                    <li>Data Interpretation</li>
+                    <li>Logical Reasoning</li>
+                    <li>Mock Interviews</li>
+                    <li>Resume Building</li>
+                </ul>
+            </div>
+            <div class="additional-card">
+                <h3>Professional Soft Skills</h3>
+                <p>Essential interpersonal skills to excel in professional environments</p>
+                <ul>
+                    <li>Effective Communication</li>
+                    <li>Interpersonal Skills</li>
+                    <li>Time Management</li>
+                    <li>Professional Work Ethic</li>
+                    <li>Personal Grooming</li>
+                    <li>Team Collaboration</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="course-title"></h2>
+            <p id="course-description"></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>AU Ignite Future Skills Academy</h3>
+                <p>Empowering youth through skill development and technology training. A joint initiative of AU Foundation and Ambuja Foundation.</p>
+                <div class="social-links">
+                    <a href="#"><i class='bx bxl-linkedin'></i></a>
+                    <a href="#"><i class='bx bxl-instagram'></i></a>
+                    <a href="#"><i class='bx bxl-twitter'></i></a>
+                    <a href="#"><i class='bx bxl-facebook'></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#courses">Courses</a>
+                <a href="#team">Our Team</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p><i class='bx bx-map'></i> Agrasen Nagar, Gopalpura Mode, Jaipur</p>
+                <p><i class='bx bx-phone'></i> XXXXXXXXXX</p>
+                <p><i class='bx bx-envelope'></i> au@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Training Centers</h3>
+                <p>Jaipur • Chirawa • Jaitaran</p>
+                <p>Nagaur • Goverdhan</p>
+                <p>16 centers across Rajasthan</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Created with ❤ by HUMANS on EARTH | © 2025 AU Ignite Future Skills Academy</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Modal functions
+        function openModal(title, description) {
+            document.getElementById('course-title').innerText = title;
+            document.getElementById('course-description').innerText = description;
+            document.getElementById('myModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('myModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Close mobile menu if open
+                    document.getElementById('navLinks').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
